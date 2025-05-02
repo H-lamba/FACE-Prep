@@ -21,7 +21,7 @@ Stay tuned as I post my daily progress!
 
 ## 🌟 Let's Connect
 
-Feel free to connect with me on [LinkedIn](https://www.linkedin.com) and follow my journey!  
+Feel free to connect with me on [LinkedIn]((https://www.linkedin.com/in/himanshu-50385730a/)) and follow my journey!  
 Also, star this repo ⭐ if you find it helpful.
 
 ---
