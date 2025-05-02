@@ -1,5 +1,4 @@
 
-```markdown
 # Missing Number - LeetCode Problem 268
 
 This repository contains a solution to the LeetCode problem **[268. Missing Number](https://leetcode.com/problems/missing-number/)** using C++.
