@@ -62,9 +62,8 @@ public:
 This is a **math-based trick** based on the concept of **digital root**:
 
 - Any non-zero number's digital root can be computed as:  
-  \[
-  \text{digital root} = 1 + (num - 1) \% 9
-  \]
+ digital root = 1 + (num - 1) \% 9
+  
 
 ### Code:
 
