@@ -1,99 +1,108 @@
-# Remove Nth Node From End of List (LeetCode Problem #19)
+# LeetCode Problem #19: Remove Nth Node From End of List
 
-## Problem Statement
+## 🧠 Problem Statement
 
-Given the head of a linked list, remove the nth node from the end of the list and return its head.
+Given the head of a singly linked list, remove the `n`th node from the **end** of the list and return its head.
+
+---
+
+## 🧪 Examples
 
 ### Example 1:
+![image](https://github.com/user-attachments/assets/20028301-f1d3-41ed-864c-6297ae9486fb)
 
 ```
-Input: head = [1,2,3,4,5], n = 2  
-Output: [1,2,3,5]
+
+Input: head = \[1,2,3,4,5], n = 2
+Output: \[1,2,3,5]
+
 ```
 
 ### Example 2:
-
 ```
-Input: head = [1], n = 1  
-Output: []
+
+Input: head = \[1], n = 1
+Output: \[]
+
 ```
 
 ### Example 3:
-
-```
-Input: head = [1,2], n = 1  
-Output: [1]
 ```
 
-> 📝 **Note:** While the problem statement is about removing the Nth node from the end of a linked list, the code included here solves **a different problem** — counting trailing zeroes in a factorial number. The README explains the approaches used in that factorial-related logic.
+Input: head = \[1,2], n = 1
+Output: \[1]
+
+````
 
 ---
 
-# Trailing Zeroes in Factorial
+## ✅ Approach: Two-Pass Iterative Solution
 
-The code provided calculates the number of trailing zeroes in `n!` (n factorial). There are two approaches:
+### Description:
+1. First, traverse the list to count the total number of nodes.
+2. If the node to remove is the head (`n == size`), adjust the head.
+3. Otherwise, traverse again to the node before the target and remove the target by updating pointers.
 
-## ✅ Optimized Approach (Used in Final Code)
+---
+
+## 💻 Code:
 
 ```cpp
-int trailingZeroes(int n) {
-    int ans = 0;
-    while(n >= 5) {
-        n = n / 5;
-        ans = ans + n;
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        int s = 0;
+        ListNode* temp = head;
+
+        // Count total number of nodes
+        while (temp) {
+            s++;
+            temp = temp->next;
+        }
+
+        // If head needs to be removed
+        if (s == n) {
+            head = head->next;
+            return head;
+        }
+
+        // Traverse to the node before the target
+        int step = s - n;
+        temp = head;
+        for (int i = 1; i < step; i++) {
+            temp = temp->next;
+        }
+
+        // Remove the nth node from the end
+        ListNode* next = temp->next;
+        temp->next = next->next;
+
+        return head;
     }
-    return ans;
-}
-```
-
-### 🔍 Explanation:
-
-* A trailing zero is created with each pair of multiples of 2 and 5.
-* Since factorials have more 2s than 5s, we count how many times 5 is a factor.
-* This is done by dividing `n` by 5, 25, 125, etc., adding all the quotients.
-
-**Time Complexity:** `O(log₅n)`
-**Space Complexity:** `O(1)`
+};
+````
 
 ---
 
-## ❌ Brute-Force (Commented Out in Code)
+## ⏱️ Time and Space Complexity
 
-```cpp
-long long fac(int n) {
-    if(n == 0) return 1;
-    return fac(n - 1) * n;
-}
-
-int trailingZeroes(int n) {
-    long long fact = fac(n);
-    int ans = 0;
-    while(fact > 0) {
-        if(fact % 10 != 0) break;
-        ans++;
-        fact = fact / 10;
-    }
-    return ans;
-}
-```
-
-### 🔍 Explanation:
-
-* First calculates the factorial using recursion.
-* Then counts the number of trailing zeroes by dividing by 10 until the last digit is not 0.
-
-**Problems with this approach:**
-
-* Recursive factorial quickly overflows for large `n` (even for `n > 20`).
-* Very inefficient in terms of time and space.
+* **Time Complexity:** O(N) — two passes through the linked list.
+* **Space Complexity:** O(1) — constant space usage.
 
 ---
 
-## Summary
+## 📌 Notes
 
-| Approach    | Time Complexity         | Space Complexity | Suitable for Large `n`? |
-| ----------- | ----------------------- | ---------------- | ----------------------- |
-| Brute-Force | Exponential (recursive) | High             | ❌ No                    |
-| Optimized   | `O(log₅n)`              | Constant         | ✅ Yes                   |
+* This solution is straightforward and easy to implement using two traversals.
+* A more efficient **one-pass** solution can be done using two pointers (fast and slow), which you can consider for further optimization.
 
----
