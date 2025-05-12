@@ -7,6 +7,8 @@ Given the head of a **sorted** linked list, delete all nodes that have duplicate
 ### Examples
 
 **Example 1:**
+![image](https://github.com/user-attachments/assets/deacfd19-8255-43e3-a128-2061da9df5f1)
+
 ```
 
 Input: head = \[1,2,3,3,4,4,5]
@@ -15,6 +17,8 @@ Output: \[1,2,5]
 ```
 
 **Example 2:**
+![image](https://github.com/user-attachments/assets/a0b79810-00d5-4df5-b8a8-6219a96cbe65)
+
 ```
 
 Input: head = \[1,1,1,2,3]
