@@ -1,38 +1,71 @@
 
-# Insert into Binary Search Tree (Iterative Approach)
+# Insert into Binary Search Tree (BST)
 
 ## 📌 Problem Statement
 
-Given the `root` of a binary search tree (BST) and an integer `val`, insert the value into the BST and return the root of the updated tree. It is guaranteed that the new value does not exist in the original BST.
+Given the `root` of a binary search tree (BST) and an integer `val`, insert the value into the BST and return the root of the updated tree. The new value is guaranteed to be unique (not already present in the BST).
 
 ---
 
-## 🚀 Approach: Iterative Method Using While Loop
+## 🌳 What is a Binary Search Tree?
 
-### ✅ Key Concepts
+A **Binary Search Tree (BST)** is a binary tree where each node follows these rules:
 
-- A Binary Search Tree (BST) maintains the property that:
-  - Left child < Parent < Right child
-- We traverse the tree starting from the root.
-- At each step, we decide to move left or right depending on the value to insert.
-- We stop when we find a `nullptr` (empty spot), and insert the new node there.
+- The value of every node in the **left subtree** is **less than** the node's value.
+- The value of every node in the **right subtree** is **greater than** the node's value.
 
 ---
 
-## 🧠 Algorithm Steps
+## 🧠 Two Approaches
 
-1. **Create a new node** with the given value.
-2. **Handle the base case**: If the tree is empty (`root == nullptr`), return the new node as the root.
-3. Start from the root node and traverse using a `while(true)` loop:
-   - If `val < current->val`, go to the left subtree:
-     - If `current->left` is `nullptr`, insert the new node here.
-   - Else, go to the right subtree:
-     - If `current->right` is `nullptr`, insert the new node here.
-4. Return the root node after insertion.
+We can solve this problem using:
+
+1. ✅ Recursive Approach  
+2. ✅ Iterative Approach (using `while` loop)
 
 ---
 
-## 💻 Code Implementation
+## 🔁 1. Recursive Approach
+
+### 📌 Idea
+
+We use the **call stack** to traverse the tree. At each recursive step:
+- If the node is `nullptr`, insert the new value there.
+- Otherwise, recurse into the left or right subtree based on the comparison.
+
+### 💻 Code
+
+```cpp
+class Solution {
+public:
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        if (root == nullptr)
+            return new TreeNode(val);  // base case: insert here
+
+        if (val < root->val)
+            root->left = insertIntoBST(root->left, val);
+        else
+            root->right = insertIntoBST(root->right, val);
+
+        return root;
+    }
+};
+````
+
+### 📈 Time and Space Complexity
+
+* **Time:** O(h), where h is the height of the tree.
+* **Space:** O(h) due to recursive call stack.
+
+---
+
+## 🔁 2. Iterative Approach
+
+### 📌 Idea
+
+We simulate the recursion using a loop. Traverse the tree using a pointer until you find an empty left or right spot, then insert the new node there.
+
+### 💻 Code
 
 ```cpp
 class Solution {
@@ -50,29 +83,32 @@ public:
                 if (current->left == nullptr) {
                     current->left = newNode;
                     break;
-                } else {
-                    current = current->left;
                 }
+                current = current->left;
             } else {
                 if (current->right == nullptr) {
                     current->right = newNode;
                     break;
-                } else {
-                    current = current->right;
                 }
+                current = current->right;
             }
         }
 
         return root;
     }
 };
-````
+```
+
+### 📈 Time and Space Complexity
+
+* **Time:** O(h)
+* **Space:** O(1) (no recursion)
 
 ---
 
-## 🧪 Example
+## 🔍 Example
 
-Inserting `5` into the BST:
+Insert `5` into this BST:
 
 ```
     4
@@ -80,7 +116,7 @@ Inserting `5` into the BST:
   2   7
 ```
 
-Result after insertion:
+After insertion:
 
 ```
     4
@@ -92,29 +128,21 @@ Result after insertion:
 
 ---
 
-## 📈 Time and Space Complexity
+## 🆚 Comparison
 
-* **Time Complexity:** O(h), where `h` is the height of the tree.
-
-  * In the worst case (skewed tree), `h = n`, so complexity becomes O(n).
-  * In the best/average case (balanced tree), `h = log n`, so O(log n).
-* **Space Complexity:** O(1)
-
-  * No recursion, no auxiliary stack — pure iterative method.
-
----
-
-## ✅ Why Use Iterative?
-
-* Avoids stack overflow for deep trees (unlike recursion).
-* Better control over memory usage.
-* Explicit flow makes it easier to debug or trace.
+| Feature         | Recursive                    | Iterative                    |
+| --------------- | ---------------------------- | ---------------------------- |
+| Code Simplicity | Short and elegant            | Slightly longer, more manual |
+| Stack Usage     | Uses call stack (O(h) space) | Constant space (O(1))        |
+| Risk            | Stack overflow in deep trees | No stack overflow risk       |
+| Performance     | Same time complexity (O(h))  | Same, but can save space     |
 
 ---
 
-## 🛠️ Enhancements
+## 🧑‍💻 Author
 
-* Can be modified to keep track of parent nodes.
-* Can be extended to return the inserted node itself or the path of insertion.
+* **Himanshu Lamba**
+* Part of the **#DrGVishwanathan 50 Days Coding Challenge**
+* Topic: Binary Search Tree Insertion – Recursive & Iterative Solutions
 
 ---
